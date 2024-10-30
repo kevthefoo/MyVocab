@@ -5,8 +5,8 @@ import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 
 export default function Dashboard() {
-    const { isSignedIn, isLoaded } = useUser();
-
+    const { isSignedIn, isLoaded, user } = useUser();
+    console.log(user)
     const router = useRouter();
 
     useEffect(() => {

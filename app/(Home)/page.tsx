@@ -1,10 +1,10 @@
 "use client";
 
-import Link from "next/link";
-
 import { useUser } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
+
+import Navbar from "@/components/Navbar";
 
 export default function Home() {
     const { isSignedIn } = useUser();
@@ -17,8 +17,8 @@ export default function Home() {
     }, [isSignedIn, router]);
 
     return (
-        <div>
-            <Link href="/dashboard">Dashboard</Link>
-        </div>
+        <>
+            <Navbar />
+        </>
     );
 }
