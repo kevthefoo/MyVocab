@@ -1,11 +1,14 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
-const UserSchema = new mongoose.Schema({
-  clerkId: { type: String, required: true, unique: true },
-  email: { type: String, required: true, unique: true },
-  firstName: { type: String },
-  lastName: { type: String },
-  createdAt: { type: Date, default: Date.now },
-});
+const UserMetaDataSchema = new mongoose.Schema(
+    {
+        clerkId: { type: String, required: true, unique: true },
+        email: { type: String, required: true, unique: true },
+        firstName: { type: String },
+        lastName: { type: String },
+        createdAt: { type: Date, default: Date.now },
+    },
+    { collection: "UserMetaData" }
+);
 
-export default mongoose.models.User || mongoose.model('User', UserSchema);
+export default mongoose.models.UserMetaData || mongoose.model('UserMetaData', UserMetaDataSchema);
