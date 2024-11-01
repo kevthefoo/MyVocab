@@ -20,6 +20,9 @@ export default function Navbar() {
                     <li>
                         <Link href="#price">Price</Link>
                     </li>
+                    <li>
+                        <Link href="#features">Features</Link>
+                    </li>
                 </ul>
             </nav>
             <div>

@@ -4,9 +4,11 @@ import { useUser } from "@clerk/clerk-react";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 
+import Navbar from "@/components/Dashboard/Navbar/Navbar";
+
 export default function Dashboard() {
     const { isSignedIn, isLoaded, user } = useUser();
-    console.log(user)
+    console.log(user);
     const router = useRouter();
 
     useEffect(() => {
@@ -24,5 +26,9 @@ export default function Dashboard() {
         return null; // Return null while redirecting
     }
 
-    return <div>This is a Dashboard</div>;
+    return (
+        <div className="">
+            <Navbar />
+        </div>
+    );
 }
