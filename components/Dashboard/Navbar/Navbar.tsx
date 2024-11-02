@@ -7,7 +7,7 @@ export default function Navbar() {
                 <h1 className="mb-10">Vocab Lake</h1>
                 <ul className="flex flex-col gap-4">
                     <li>
-                        <Link href="">Dictionary</Link>
+                        <Link href="/dashboard/overview">Overview</Link>
                     </li>
                     <li>
                         <Link href="">Vocab Lake</Link>

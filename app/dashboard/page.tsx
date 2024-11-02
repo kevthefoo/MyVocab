@@ -4,8 +4,6 @@ import { useUser } from "@clerk/clerk-react";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 
-import Navbar from "@/components/Dashboard/Navbar/Navbar";
-
 export default function Dashboard() {
     const { isSignedIn, isLoaded, user } = useUser();
     console.log(user);
@@ -28,7 +26,7 @@ export default function Dashboard() {
 
     return (
         <div className="">
-            <Navbar />
+            adasd
         </div>
     );
 }
