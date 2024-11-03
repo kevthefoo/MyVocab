@@ -18,6 +18,7 @@ export default function Dictionary() {
                 throw new Error("Vocabulary not found");
             }
             const data = await response.json();
+            console.log(typeof(data))
             setResult(data);
         } catch (error) {
             setError("Cannot find the vocabulary");
@@ -41,9 +42,10 @@ export default function Dictionary() {
             {error && <p className="text-red-500">{error}</p>}
             {result && (
                 <div className="mt-4">
-                    <h2 className="text-xl font-bold">Result:</h2>
-                    <pre>{JSON.stringify(result, null, 2)}</pre>
-                    <h1>{result}</h1>
+                    <h2 className="text-xl font-bold">asdas:</h2>
+                    {/* <pre>{JSON.stringify(result, null, 2)}</pre> */}
+                    <h1>{result.vocabulary}</h1>
+                    <h1>{result.meanings[0].definition}</h1>
                 </div>
             )}
         </section>

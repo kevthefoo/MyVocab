@@ -6,6 +6,7 @@ export async function GET(req) {
 
     const url = new URL(req.url);
     const vocab = url.searchParams.get("vocab");
+
     try {
         const result = await queryVocab(vocab);
         return Response.json(result);
