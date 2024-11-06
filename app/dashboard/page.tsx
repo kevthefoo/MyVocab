@@ -5,8 +5,7 @@ import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 
 export default function Dashboard() {
-    const { isSignedIn, isLoaded, user } = useUser();
-    console.log(user);
+    const { isSignedIn, isLoaded } = useUser();
     const router = useRouter();
 
     useEffect(() => {
@@ -24,9 +23,5 @@ export default function Dashboard() {
         return null; // Return null while redirecting
     }
 
-    return (
-        <div className="">
-            adasd
-        </div>
-    );
+    return <div className="">adasd</div>;
 }
