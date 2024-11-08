@@ -25,7 +25,7 @@ export default function Dictionary() {
     const [vocab, setVocab] = useState("");
     const [result, setResult] = useState<VocabData | null>(null);
     const [error, setError] = useState("");
-    const [userVocab, setUserVocab] = useState<VocabData[]>([]);
+    // const [userVocab, setUserVocab] = useState<VocabData[]>([]);
 
     // console.log(userID);
 
