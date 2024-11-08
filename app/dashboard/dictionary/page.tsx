@@ -11,11 +11,7 @@ type Meaning = {
 
 type VocabData = {
     vocabulary: string;
-    meanings: {
-        speech_part: string;
-        definition: string;
-        example: string;
-    }[];
+    meanings: Meaning[];
     tags: string[];
 };
 

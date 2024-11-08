@@ -17,7 +17,7 @@ export default function Navbar() {
                         <Link href="/dashboard/dictionary">Dictionary</Link>
                     </li>
                     <li>
-                        <Link href="/dashboard/review">review</Link>
+                        <Link href="/dashboard/review">Review</Link>
                     </li>
                     <li>
                         <Link href="">Subscription</Link>
