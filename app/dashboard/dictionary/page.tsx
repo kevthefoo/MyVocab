@@ -27,7 +27,7 @@ export default function Dictionary() {
     const [error, setError] = useState("");
     const [userVocab, setUserVocab] = useState<VocabData[]>([]);
 
-    console.log(userID);
+    // console.log(userID);
 
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
@@ -53,23 +53,26 @@ export default function Dictionary() {
     };
 
     const handleAddVocab = async () => {
-        if (!result) return;
+        // if (!result) return;
 
         try {
-            const response = await fetch("/api/user/vocab", {
+            const response = await fetch("/api/addvocab", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify(result),
+                body: JSON.stringify({ vocab, userID }),
             });
 
             if (!response.ok) {
                 throw new Error("Error adding vocabulary");
             }
 
-            const newVocab = await response.json();
-            setUserVocab([...userVocab, newVocab]);
+            if (response.status === 200) {
+                console.log("Vocabulary added successfully");
+            } else {
+                throw new Error("Error adding vocabulary");
+            }
         } catch (err) {
             if (err instanceof Error) {
                 setError(err.message);
