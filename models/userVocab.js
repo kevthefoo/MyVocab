@@ -31,5 +31,4 @@ const UserVocabSchema = new mongoose.Schema(
     { collection: "UserVocab" }
 );
 
-export default mongoose.models.UserVocab ||
-    mongoose.model("UserVocab", UserVocabSchema);
+export default mongoose.models.UserVocab || mongoose.model("UserVocab", UserVocabSchema);
