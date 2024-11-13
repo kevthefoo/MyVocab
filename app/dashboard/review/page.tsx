@@ -20,6 +20,7 @@ export default function Review() {
     const userID = user?.id;
     const [vocab, setVocab] = useState<VocabData | null>(null);
     const [error, setError] = useState("");
+    const [start, setStart] = useState<boolean>(false);
 
     const getVocab = async () => {
         try {
@@ -51,6 +52,7 @@ export default function Review() {
             const randomVocab = vocabArray[randomIndex];
 
             console.log(randomVocab);
+            setStart(true);
             setVocab(randomVocab);
         } catch (error) {
             if (error instanceof Error) {
@@ -79,7 +81,7 @@ export default function Review() {
                 className="border-2 border-black rounded-xl px-4 cursor-pointer"
                 onClick={getVocab}
             >
-                start
+                {start?"Next":"Start"}
             </div>
         </section>
     );
