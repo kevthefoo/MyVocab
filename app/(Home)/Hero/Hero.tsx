@@ -1,5 +1,59 @@
+'use client'
+
+import { useState } from 'react'
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+
 export default function Hero() {
+    const [query, setQuery] = useState('')
+    const [result, setResult] = useState('')
+    const [isLoading, setIsLoading] = useState(false)
+
+    const handleSearch = async () => {
+        setIsLoading(true)
+        try {
+            const response = await fetch('/api/chatgpt', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ query }),
+            })
+            const data = await response.json()
+            setResult(data.result)
+        } catch (error) {
+            console.error('Error:', error)
+            setResult('An error occurred while processing your request.')
+        } finally {
+            setIsLoading(false)
+        }
+    }
+
     return (
-        <section className="border-4 border-red-400 h-screen pt-10">This is Hero section</section>
-    );
+        <section className="border-4 border-red-400 h-screen pt-10 flex flex-col justify-center items-center">
+            <div className="w-36 space-y-4 ">
+                <Input
+                    type="text"
+                    placeholder="Enter a vocabulary..."
+                    value={query}
+                    onChange={(e) => setQuery(e.target.value)}
+                    className="w-full"
+                />
+                <Button 
+                    onClick={handleSearch} 
+                    disabled={isLoading}
+                    className="w-full"
+                >
+                    {isLoading ? 'Searching...' : 'Search'}
+                </Button>
+            </div>
+            {result && (
+                <div className="mt-8 p-4 bg-white rounded shadow max-w-md w-full">
+                    <h2 className="text-lg font-semibold mb-2">Result:</h2>
+                    <p>{result}</p>
+                </div>
+            )}
+        </section>
+    )
 }
+
