@@ -1,6 +1,7 @@
 import { ClerkProvider } from "@clerk/nextjs";
 import type { Metadata } from "next";
 import Navbar from "@/components/Navbar/Navbar";
+import { Toaster } from "sonner";
 
 import "./globals.css";
 
@@ -21,7 +22,10 @@ export default function RootLayout({
                     <header>
                         <Navbar />
                     </header>
-                    <main>{children}</main>
+                    <main>
+                        {children}
+                        <Toaster richColors  visibleToasts={1} />
+                    </main>
                 </body>
             </html>
         </ClerkProvider>

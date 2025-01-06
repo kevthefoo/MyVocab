@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
 import { useUser, SignIn } from "@clerk/nextjs";
+import { toast } from "sonner";
 
 type Result = {
     vocabulary: string;
@@ -17,17 +18,35 @@ export default function Hero() {
     const [query, setQuery] = useState("");
     const [result, setResult] = useState<Result | undefined>(undefined);
     const [isLoading, setIsLoading] = useState(false);
+    const [ispopup, setIspopup] = useState(false);
 
     if (!isLoaded) {
-        return <div>Loading...</div>;
+        return (
+            <div className="h-screen flex flex-col justify-center items-center">
+                Loading...
+            </div>
+        );
     }
+
+    // Close modal on overlay click
+    const handleOverlayClick = (event: React.MouseEvent<HTMLDivElement>) => {
+        if (event.target === event.currentTarget) {
+            setIspopup(false);
+        }
+    };
 
     const handleSearch = async () => {
         if (!isSignedIn) {
             console.log("User is not signed in");
+            setIspopup(true);
             return <SignIn />;
         }
 
+        if (!query) {
+            toast.error("Please enter a vocabulary to search.");
+            return;
+        }
+        
         setIsLoading(true);
         try {
             const response = await fetch("/api/chatgpt", {
@@ -49,7 +68,7 @@ export default function Hero() {
     };
 
     return (
-        <section className="border-4 border-red-400 h-screen pt-10 flex flex-col justify-center items-center">
+        <section className="border-4 border-red-400 h-screen flex flex-col justify-center items-center">
             {result && (
                 <div className="mb-8 p-4 bg-white rounded shadow max-w-md w-full">
                     <h2 className="text-lg font-semibold mb-2">
@@ -67,7 +86,6 @@ export default function Hero() {
                 </div>
             )}
             <div className="w-36 space-y-4 ">
-                <SignIn routing="hash" />
                 <Input
                     type="text"
                     placeholder="Enter a vocabulary"
@@ -82,6 +100,16 @@ export default function Hero() {
                 >
                     {isLoading ? "Searching..." : "Search"}
                 </Button>
+            </div>
+            <div
+                className={
+                    ispopup
+                        ? `w-full h-screen fixed flex justify-center items-center bg-gray-600 bg-opacity-85 z-10`
+                        : `hidden`
+                }
+                onClick={handleOverlayClick}
+            >
+                <SignIn routing="hash" />
             </div>
         </section>
     );

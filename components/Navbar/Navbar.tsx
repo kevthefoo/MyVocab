@@ -11,30 +11,24 @@ export default function Navbar() {
             <nav>
                 <ul className="flex gap-4">
                     <li>
-                        <Link href="/">Home</Link>
+                        <Link href="/">Search</Link>
                     </li>
                     <li>
-                        <Link href="/dashboard">Dashboard</Link>
+                        <Link href="/dashboard">Database</Link>
                     </li>
                     <li>
-                        <Link href="#about">About</Link>
-                    </li>
-                    <li>
-                        <Link href="#price">Price</Link>
-                    </li>
-                    <li>
-                        <Link href="#features">Features</Link>
+                        <Link href="account">Account</Link>
                     </li>
                 </ul>
             </nav>
             <div className=" flex justify-center items-center">
                 <SignedOut>
-                    <SignInButton mode="modal"/>
+                    <SignInButton mode="modal" />
                 </SignedOut>
                 <SignedIn>
                     <UserButton
                         userProfileMode="navigation"
-                        userProfileUrl="/user-profile"
+                        userProfileUrl="/account"
                     ></UserButton>
                 </SignedIn>
             </div>
