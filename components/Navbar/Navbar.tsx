@@ -29,7 +29,7 @@ export default function Navbar() {
             </nav>
             <div className=" flex justify-center items-center">
                 <SignedOut>
-                    <SignInButton mode="modal" />
+                    <SignInButton mode="modal"/>
                 </SignedOut>
                 <SignedIn>
                     <UserButton

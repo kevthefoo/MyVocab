@@ -4,6 +4,8 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
+import { useUser, SignIn } from "@clerk/nextjs";
+
 type Result = {
     vocabulary: string;
     meaning: string;
@@ -11,11 +13,21 @@ type Result = {
 };
 
 export default function Hero() {
+    const { isSignedIn, isLoaded } = useUser();
     const [query, setQuery] = useState("");
     const [result, setResult] = useState<Result | undefined>(undefined);
     const [isLoading, setIsLoading] = useState(false);
 
+    if (!isLoaded) {
+        return <div>Loading...</div>;
+    }
+
     const handleSearch = async () => {
+        if (!isSignedIn) {
+            console.log("User is not signed in");
+            return <SignIn />;
+        }
+
         setIsLoading(true);
         try {
             const response = await fetch("/api/chatgpt", {
@@ -55,6 +67,7 @@ export default function Hero() {
                 </div>
             )}
             <div className="w-36 space-y-4 ">
+                <SignIn routing="hash" />
                 <Input
                     type="text"
                     placeholder="Enter a vocabulary"
