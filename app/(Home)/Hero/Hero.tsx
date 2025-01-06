@@ -42,19 +42,29 @@ export default function Hero() {
             return <SignIn />;
         }
 
-        if (!query) {
+        const modifiedQuery = query.trim().toLowerCase();
+
+        if (/\s/.test(modifiedQuery)) {
+            toast.error("Please enter a single word to search.");
+            setQuery("");
+            return;
+        }
+
+        if (!modifiedQuery) {
             toast.error("Please enter a vocabulary to search.");
             return;
         }
-        
+
         setIsLoading(true);
+        setQuery("");
+        
         try {
             const response = await fetch("/api/chatgpt", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify({ query }),
+                body: JSON.stringify({ modifiedQuery }),
             });
             const data = await response.json();
             const result: Result = data.result;

@@ -4,7 +4,7 @@ import { zodResponseFormat } from "openai/helpers/zod";
 import { z } from "zod";
 
 export async function POST(req: Request) {
-    const { query } = await req.json();
+    const { modifiedQuery } = await req.json();
     const openai = new OpenAI({
         apiKey: process.env.OPENAI_SECRET_KEY,
     });
@@ -26,14 +26,14 @@ export async function POST(req: Request) {
                 },
                 {
                     role: "user",
-                    content: `What is the meaning of the word ${query}?`,
+                    content: `What is the meaning of the word ${modifiedQuery}?`,
                 },
             ],
-            response_format:zodResponseFormat(vocabData, "ResVocabData"),
+            response_format: zodResponseFormat(vocabData, "ResVocabData"),
         });
 
         const parsedVocabData = completion.choices[0].message.parsed;
-        console.log(parsedVocabData)
+        console.log(parsedVocabData);
         return NextResponse.json({ result: parsedVocabData }, { status: 200 });
     } catch (error) {
         console.error("Error:", error);
