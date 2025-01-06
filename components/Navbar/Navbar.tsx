@@ -1,10 +1,12 @@
+"use client";
+
 import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 
 import Link from "next/link";
 
 export default function Navbar() {
     return (
-        <header className="flex fixed border-2 border-black w-full justify-around h-10 items-center">
+        <header className="flex fixed border-4 border-black w-full justify-around h-16 items-center">
             <div>Logo</div>
             <nav>
                 <ul className="flex gap-4">
@@ -25,12 +27,15 @@ export default function Navbar() {
                     </li>
                 </ul>
             </nav>
-            <div>
+            <div className=" flex justify-center items-center">
                 <SignedOut>
-                    <SignInButton />
+                    <SignInButton mode="modal" />
                 </SignedOut>
                 <SignedIn>
-                    <UserButton />
+                    <UserButton
+                        userProfileMode="navigation"
+                        userProfileUrl="/user-profile"
+                    ></UserButton>
                 </SignedIn>
             </div>
         </header>

@@ -38,10 +38,26 @@ export default function Hero() {
 
     return (
         <section className="border-4 border-red-400 h-screen pt-10 flex flex-col justify-center items-center">
+            {result && (
+                <div className="mb-8 p-4 bg-white rounded shadow max-w-md w-full">
+                    <h2 className="text-lg font-semibold mb-2">
+                        {result.vocabulary}
+                    </h2>
+
+                    <p className="mb-2">{result.meaning}</p>
+                    <ul className="flex flex-col gap-2 p-4">
+                        {result.example.map((ex: string, index: number) => (
+                            <li key={index} className="list-disc">
+                                <p>{ex}</p>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+            )}
             <div className="w-36 space-y-4 ">
                 <Input
                     type="text"
-                    placeholder="Enter a vocabulary..."
+                    placeholder="Enter a vocabulary"
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
                     className="w-full"
@@ -54,18 +70,6 @@ export default function Hero() {
                     {isLoading ? "Searching..." : "Search"}
                 </Button>
             </div>
-            {result && (
-                <div className="mt-8 p-4 bg-white rounded shadow max-w-md w-full">
-                    <h2 className="text-lg font-semibold mb-2">
-                        {result.vocabulary}
-                    </h2>
-
-                    <p>{result.meaning}</p>
-                    {result.example.map((ex: string, index: number) => (
-                        <p key={index}>{ex}</p>
-                    ))}
-                </div>
-            )}
         </section>
     );
 }
