@@ -14,10 +14,10 @@ export default function Navbar() {
                         <Link href="/">Search</Link>
                     </li>
                     <li>
-                        <Link href="/dashboard">Database</Link>
+                        <Link href="/pricing">Pricing</Link>
                     </li>
                     <li>
-                        <Link href="account">Account</Link>
+                        <Link href="/dashboard">Database</Link>
                     </li>
                 </ul>
             </nav>
