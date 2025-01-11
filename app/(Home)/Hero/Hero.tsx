@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 
 import { useUser, SignIn } from "@clerk/nextjs";
 import { toast } from "sonner";
+import { Star } from "lucide-react";
 
 type Result = {
     vocabulary: string;
@@ -57,7 +58,7 @@ export default function Hero() {
 
         setIsLoading(true);
         setQuery("");
-        
+
         try {
             const response = await fetch("/api/chatgpt", {
                 method: "POST",
@@ -81,9 +82,12 @@ export default function Hero() {
         <section className="border-4 border-red-400 h-screen flex flex-col justify-center items-center">
             {result && (
                 <div className="mb-8 p-4 bg-white rounded shadow max-w-md w-full">
-                    <h2 className="text-lg font-semibold mb-2">
-                        {result.vocabulary}
-                    </h2>
+                    <div className="mb-2 flex items-center justify-between">
+                        <h2 className="text-lg font-semibold">
+                            {result.vocabulary}
+                        </h2>
+                        <Star fill="yellow"/>
+                    </div>
 
                     <p className="mb-2">{result.meaning}</p>
                     <ul className="flex flex-col gap-2 p-4">

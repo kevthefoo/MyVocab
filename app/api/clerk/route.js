@@ -1,7 +1,6 @@
-import dbConnect from "@/lib/dbConnect";
-import handleUserCreation from "@/lib/createUser"
 
-// const webhook = new Webhook(process.env.CLERK_API_SECRET);
+
+// const webhook = new Webhook(process.env.CLERK_SECRET_KEY);
 
 export async function POST(req) {
     // Parse the request body
@@ -12,12 +11,6 @@ export async function POST(req) {
         // const event = webhook.verifyEvent(req.body, req.headers);
         if (data.type === "user.created") {
             // const { id, email_addresses, first_name, last_name } = data.data;
-
-            // Connect to MongoDB
-            await dbConnect("User");
-
-            // Create a new user in MongoDB
-            handleUserCreation(data)
 
             return Response.json({ message: "Success" });
         } else {
