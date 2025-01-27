@@ -1,24 +1,28 @@
-import handleAddVocab from "@/lib/addVocab";
-import dbConnect from "@/lib/dbConnect";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
+import { createClient } from "@/utils/supabase/server";
 
-export async function POST(req: Request) {
-    await dbConnect("User");
-
-    const data = await req.json();
+export async function POST(req: NextRequest) {
     try {
-        console.log(1);
-        const result = await handleAddVocab(data);
-        console.log(2);
-        return NextResponse.json({ result: result }, { status: 200 });
+        const supabase = await createClient();
+
+        const data = await req.json();
+
+        const clerkUserId = data.clerkUserId;
+        const vocabulary = data.vocabulary;
+        const meaning = data.meaning;
+        const example = data.example.join("\n");
+
+        const { error } = await supabase.from(clerkUserId).insert({
+            vocabulary: vocabulary,
+            meaning: meaning,
+            example: example,
+        });
+
+        console.log(error);
+
+        return NextResponse.json({ message: "Success" });
     } catch (error) {
-        if (error instanceof Error) {
-            return NextResponse.json({ error: error.message }, { status: 500 });
-        } else {
-            return NextResponse.json(
-                { error: "An unknown error occurred" },
-                { status: 520 }
-            );
-        }
+        console.error("Error:", error);
+        return NextResponse.json({ message: "Error with adding vocabulary" });
     }
 }

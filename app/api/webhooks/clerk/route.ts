@@ -19,6 +19,18 @@ export async function POST(req: NextRequest) {
                 .from("clients")
                 .insert({ client_user_id: user_id, email: email_address });
 
+            // Create a new table for the user
+            const q = await supabase.rpc("user_vocab_table", {
+                user_id,
+            });
+
+            console.log(q);
+
+            // if (createTableError) {
+            //     console.error("Error creating user table:", createTableError);
+            //     return NextResponse.json({ message: "Error creating user table" }, { status: 500 });
+            // }
+
             console.log(error);
             console.log("User create");
             return NextResponse.json({ message: "Success" });

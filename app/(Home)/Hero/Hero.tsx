@@ -15,7 +15,7 @@ type Result = {
 };
 
 export default function Hero() {
-    const { isSignedIn, isLoaded } = useUser();
+    const { user, isSignedIn, isLoaded } = useUser();
     const [query, setQuery] = useState("");
     const [result, setResult] = useState<Result | undefined>(undefined);
     const [isLoading, setIsLoading] = useState(false);
@@ -28,6 +28,8 @@ export default function Hero() {
             </div>
         );
     }
+
+    const clerkUserId = user?.id;
 
     // Close modal on overlay click
     const handleOverlayClick = (event: React.MouseEvent<HTMLDivElement>) => {
@@ -78,6 +80,27 @@ export default function Hero() {
         }
     };
 
+    const addVocab = async () => {
+        if (!user) {
+            console.error("User is not signed in");
+            return;
+        }
+
+        try {
+            const response = await fetch("/api/addvocab", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ ...result, clerkUserId: clerkUserId }),
+            });
+            const r = await response.json();
+            console.log(r);
+        } catch (error) {
+            console.error("Error:", error);
+        }
+    };
+
     return (
         <section className="border-4 border-red-400 h-screen flex flex-col justify-center items-center">
             {result && (
@@ -86,7 +109,11 @@ export default function Hero() {
                         <h2 className="text-lg font-semibold">
                             {result.vocabulary}
                         </h2>
-                        <Star fill="yellow"/>
+                        <Star
+                            className="cursor-pointer"
+                            fill="yellow"
+                            onClick={addVocab}
+                        />
                     </div>
 
                     <p className="mb-2">{result.meaning}</p>
