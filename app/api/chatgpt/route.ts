@@ -22,7 +22,7 @@ export async function POST(req: Request) {
                 {
                     role: "system",
                     content:
-                        "Now you are a English vocaulary dictionary, only answer the question about English vocaularies.",
+                        "Now you are a English vocaulary dictionary, only answer the question about English vocaularies. If the input is not in English, please translate it to English first."
                 },
                 {
                     role: "user",
